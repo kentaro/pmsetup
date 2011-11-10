@@ -25,7 +25,6 @@ my $build = Module::Build->new(
         'Module::Install'               => '1',
         'IPC::System::Simple'           => '0',
 		'Test::CPAN::Meta'              => '0',
-        'perl'                          => '5.12.0',
         'Text::Xslate::Bridge::TT2Like' => 0,
         'Test::MinimumVersion' => 0,
         'Test::Perl::Critic' => 0,

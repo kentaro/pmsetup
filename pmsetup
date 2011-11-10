@@ -1,8 +1,7 @@
-#!/usr/local/bin/perl
+#!/usr/bin/env perl
 
 use strict;
 use warnings FATAL => 'all';
-use v5.12;
 use ExtUtils::MakeMaker qw(prompt);
 use File::Basename;
 use File::Path;
@@ -325,9 +324,8 @@ template: |
       },
       configure_requires   => { 'Module::Build' => '0.38' },
       requires             => {
-          # 'Exporter'                      => '0',
-          'parent'                        => '0',
-          # 'Plack'                         => '0.9949',
+          perl   => "$]",
+          parent => '0',
       },
 
       no_index    => { 'directory' => [ 'inc' ] },
@@ -338,10 +336,18 @@ template: |
 
       test_files => (-d '.git' || $ENV{RELEASE_TESTING}) ? 't/ xt/' : 't/',
       recursive_test_files => 1,
-     
+
       create_readme  => 1,
       create_license => 1,
   );
+  $build->meta_add({
+      resources => {
+          X_prepan => {
+              module_url => 'http://prepan.org/module/xxxxx',
+              author_url => 'http://prepan.org/user/xxxxxxx',
+          },
+      },
+  });
   $build->create_build_script();
 ---
 file: t/00_compile.t
@@ -361,9 +367,9 @@ template: |
   $ENV{LANG} = 'C';
   my $spell_cmd;
   foreach my $path (split(/:/, $ENV{PATH})) {
-      -x "$path/spell"  and $spell_cmd="spell", last;
-      -x "$path/ispell" and $spell_cmd="ispell -l", last;
-      -x "$path/aspell" and $spell_cmd="aspell list", last;
+      -x "$path/spell"  and $spell_cmd = "spell"             and last;
+      -x "$path/ispell" and $spell_cmd = "ispell -l"         and last;
+      -x "$path/aspell" and $spell_cmd = "aspell list -l en" and last;
   }
   plan skip_all => "no spell/ispell/aspell" unless $spell_cmd;
   
@@ -413,6 +419,9 @@ template: |
   Miyashita
   mysqldiff
   mmm
+  Kentaro
+  Kuribayashi
+  antipop
 ---
 file: xt/02_perlcritic.t
 template: |
@@ -492,7 +501,7 @@ template: |
 
   =head1 NAME
 
-  [% module %] -
+  [% module %] - blah blah blah
 
   =head1 SYNOPSIS
 
