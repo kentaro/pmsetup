@@ -76,7 +76,7 @@ sub CMD_upgrade {
         my @lines = sub {
             if (-f $file) {
                 open my $ifh, '<:utf8', $file;
-                map { s/\n//r } <$ifh>;
+                map { s/\n//; $_ } <$ifh>;
             } else {
                 ()
             }
