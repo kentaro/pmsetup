@@ -422,6 +422,7 @@ template: |
   Kentaro
   Kuribayashi
   antipop
+  GitHub
 ---
 file: xt/02_perlcritic.t
 template: |
@@ -525,6 +526,11 @@ template: |
   it under the same terms as Perl itself.
 
   =cut
+---
+file: .shipit
+template: |
+  steps = FindVersion, ChangeVersion, CheckChangeLog, DistTest, Commit, Tag, MakeDist, UploadCPAN
+  git.push_to=origin
 ---
 file: MANIFEST.SKIP
 template: |
